@@ -1,3 +1,24 @@
+
+resource "google_project_service" "compute_api" {
+    project = var.project_id
+    service = "compute.googleapis.com"
+    disable_on_destroy = false
+}
+
+resource "google_project_service" "container_api" {
+    project = var.project_id
+    service = "container.googleapis.com"
+    disable_on_destroy = false
+}
+
+resource "google_compute_network" "vpc_network" {
+    project = var.project_id
+    name = "vpc-network"
+    auto_create_subnetworks = false
+
+    depends_on = [google_project_service.compute_api]
+}
+
 # Create a VPC network for GKE
 resource "google_compute_network" "vpc" {
   name                    = "${var.cluster_name}-vpc"
