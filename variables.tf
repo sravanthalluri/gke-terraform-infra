@@ -1,5 +1,6 @@
 variable "project_id" {
   type        = string
+  default     = "sravanth-gcp-gke-cluster"
   description = "Your Google Cloud Project ID"
 }
 
